@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Балконный сад — Balcony Garden</title>
+<meta name="description" content="Хардкорный пиксельный симулятор растений в реальном времени. Бесплатно для Windows.">
+<meta property="og:title" content="Балконный сад — растут, пока ты спишь">
+<meta property="og:description" content="Хардкорный пиксельный симулятор растений в реальном времени. Бесплатно для Windows.">
+<meta property="og:image" content="img/og.png">
+<link rel="icon" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Golos+Text:wght@400;600&display=swap">
+<style>
+:root{
+  --wall:#e9dcc4; --wall-2:#dccbad; --wood:#4a3020; --wood-2:#6b4529;
+  --soil:#3a2414; --leaf:#4f9a3c; --leaf-2:#2f6b26; --pot:#c4693d; --sky:#8fc3e6;
+  --ink:#2b1d12; --ink-2:#6a5643; --card:#f6eedf;
+  --display:"Unbounded", "Arial Black", system-ui, sans-serif;
+  --body:"Golos Text", "Segoe UI", system-ui, sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--wall);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+img{max-width:100%;display:block;image-rendering:pixelated}
+a{color:var(--leaf-2)}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{background:var(--wood);color:#f3e6cf}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:.02em}
+.brand img{width:28px;height:28px}
+.lang{display:flex;gap:4px}
+.lang button{font:600 13px var(--body);background:transparent;color:#f3e6cf;border:2px solid #8a6a4c;border-radius:8px;padding:4px 10px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:#f3e6cf;color:var(--wood)}
+.lang button:focus-visible,.btn:focus-visible{outline:3px solid var(--leaf);outline-offset:2px}
+
+.hero{padding-block:40px 32px}
+.hero .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(34px,6vw,58px);line-height:1.05;margin:0 0 14px;text-wrap:balance}
+.hero .tag{font-size:clamp(18px,2.4vw,22px);color:var(--ink-2);margin:0 0 24px;max-width:32ch}
+.hero .cover{border:6px solid var(--wood);border-radius:12px;box-shadow:0 10px 0 var(--wall-2)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font:700 18px var(--body);padding:14px 22px;border-radius:12px;border:0;cursor:pointer}
+.btn.main{background:var(--leaf);color:#fff;box-shadow:0 5px 0 var(--leaf-2)}
+.btn.main:hover{transform:translateY(1px);box-shadow:0 4px 0 var(--leaf-2)}
+.btn.main:active{transform:translateY(4px);box-shadow:0 1px 0 var(--leaf-2)}
+.btn.alt{background:var(--card);color:var(--ink);box-shadow:0 5px 0 var(--wall-2)}
+.meta{font-size:14px;color:var(--ink-2);margin-top:10px}
+
+section{padding-block:28px}
+h2{font-family:var(--display);font-weight:600;font-size:clamp(22px,3.4vw,30px);margin:0 0 18px;text-wrap:balance}
+.sill{background:var(--card);border-radius:14px;padding:22px;border-bottom:8px solid var(--wall-2)}
+
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:16px}
+.feat{background:var(--card);border-radius:12px;padding:18px;border-left:6px solid var(--pot)}
+.feat h3{margin:0 0 6px;font-size:18px}
+.feat p{margin:0;color:var(--ink-2);font-size:16px}
+
+.mode{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center}
+.mode img{border-radius:10px;border:4px solid var(--wood)}
+
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.shots img{border-radius:8px;border:4px solid var(--wood);cursor:zoom-in}
+
+ol.steps{margin:0;padding-left:22px}
+ol.steps li{margin-bottom:8px}
+.note{background:#fff6dc;border-radius:10px;padding:12px 14px;font-size:15px;margin-top:12px}
+code{background:var(--wall-2);padding:1px 6px;border-radius:5px;font-size:.92em}
+
+footer{background:var(--wood);color:#d9c6a8;margin-top:30px}
+footer .wrap{padding-block:22px;display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;font-size:14px}
+footer a{color:#f3e6cf}
+
+.lightbox{position:fixed;inset:0;background:rgba(20,12,6,.88);display:flex;align-items:center;justify-content:center;padding:16px;z-index:10}
+.lightbox img{max-height:92vh;width:auto;border:4px solid var(--wood);border-radius:8px}
+
+[data-lang="en"] .ru, [data-lang="ru"] .en{display:none!important}
+
+@media (max-width:760px){
+  .hero .grid,.mode{grid-template-columns:1fr}
+  .hero{padding-top:24px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body data-lang="ru">
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><img src="img/favicon.png" alt=""><span>GraG_Hack</span></div>
+    <div class="lang" role="group" aria-label="Language">
+      <button id="lang-ru" aria-pressed="true">RU</button>
+      <button id="lang-en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap grid">
+    <div>
+      <h1><span class="ru">Балконный сад</span><span class="en">Balcony Garden</span></h1>
+      <p class="tag">
+        <span class="ru">Хардкорный пиксельный симулятор растений. Они растут в реальном времени — даже когда игра закрыта.</span>
+        <span class="en">A hardcore pixel-art plant sim. Your plants grow in real time — even when the game is closed.</span>
+      </p>
+      <div class="cta">
+        <a class="btn main" href="https://github.com/i66518101-hub/balcony-garden/releases/latest/download/BalconyGarden_win64.zip">
+          <span class="ru">⬇ Скачать бесплатно</span><span class="en">⬇ Download free</span>
+        </a>
+        <a class="btn alt" href="https://grag-hack.itch.io/balcony-garden" target="_blank" rel="noopener">itch.io</a>
+      </div>
+      <p class="meta">
+        <span class="ru">Windows · версия 0.2 (альфа) · 30 МБ · русский и английский</span>
+        <span class="en">Windows · version 0.2 (alpha) · 30 MB · English and Russian</span>
+      </p>
+    </div>
+    <div>
+      <img class="cover ru" src="img/cover_ru.png" alt="Обложка игры: живой томат, засохший огурец и подсолнух на подоконнике" width="630" height="500">
+      <img class="cover en" src="img/cover_en.png" alt="Game cover: a healthy tomato, a dried cucumber and a sunflower on a windowsill" width="630" height="500">
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="ru">Как это устроено</span><span class="en">How it works</span></h2>
+    <div class="features">
+      <div class="feat">
+        <h3><span class="ru">Никаких подсказок</span><span class="en">No hints</span></h3>
+        <p><span class="ru">Нет шкал и процентов. Влажность видно по цвету земли, болезнь — по листьям.</span><span class="en">No bars, no numbers. Read moisture by the soil colour and disease by the leaves.</span></p>
+      </div>
+      <div class="feat">
+        <h3><span class="ru">Реальное время</span><span class="en">Real time</span></h3>
+        <p><span class="ru">Игровые сутки — 4 настоящих часа. Сад живёт и при закрытой игре.</span><span class="en">One in-game day lasts 4 real hours. The garden keeps living while the game is closed.</span></p>
+      </div>
+      <div class="feat">
+        <h3><span class="ru">30 растений, 20 средств</span><span class="en">30 plants, 20 remedies</span></h3>
+        <p><span class="ru">Одно средство лечит, другое вредит, третье убивает сразу.</span><span class="en">One remedy cures, another hurts, a third kills instantly.</span></p>
+      </div>
+      <div class="feat">
+        <h3><span class="ru">Книга без оглавления</span><span class="en">A book with no index</span></h3>
+        <p><span class="ru">Ответы — в книге садовника с перепутанными страницами. Записывай всё в заметки у горшка.</span><span class="en">The answers are in a gardening book with shuffled pages. Keep notes next to each pot.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sill mode">
+      <div>
+        <h2><span class="ru">Режим «Подоконник»</span><span class="en">Windowsill mode</span></h2>
+        <p><span class="ru">Одна кнопка — и игра превращается в маленькую прозрачную полку с горшками поверх всех окон. Работаешь, смотришь видео, а краем глаза видишь, что у огурца посветлела земля.</span><span class="en">One click turns the game into a small transparent shelf with your pots on top of all windows. Work or watch videos while keeping an eye on your cucumber.</span></p>
+        <p><span class="ru">Ещё есть заморозка горшка, если уезжаешь, и склад на 20 растений.</span><span class="en">There's also pot freezing for when you're away, and storage for 20 plants.</span></p>
+      </div>
+      <img class="ru" src="img/windowsill.gif" alt="Полка с пятью горшками на рабочем столе поверх окна с текстом" width="640" height="480" loading="lazy">
+      <img class="en" src="img/windowsill_en.gif" alt="A shelf with five pots on the desktop over a text window" width="640" height="480" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="ru">Скриншоты</span><span class="en">Screenshots</span></h2>
+    <div class="shots ru">
+      <img src="img/ru_1_tomato.png" alt="Томат на подоконнике" loading="lazy">
+      <img src="img/ru_3_remedies.png" alt="Аптека с двадцатью средствами" loading="lazy">
+      <img src="img/ru_4_book.png" alt="Книга садовника" loading="lazy">
+      <img src="img/ru_5_seeds.png" alt="Выбор семян" loading="lazy">
+      <img src="img/cure.gif" alt="Лечение огурца" loading="lazy">
+    </div>
+    <div class="shots en">
+      <img src="img/en_1_tomato.png" alt="Tomato on the windowsill" loading="lazy">
+      <img src="img/en_3_remedies.png" alt="Remedies with twenty bottles" loading="lazy">
+      <img src="img/en_4_book.png" alt="Gardening book" loading="lazy">
+      <img src="img/en_5_seeds.png" alt="Choosing seeds" loading="lazy">
+      <img src="img/en_7_freeze.png" alt="A frozen pot" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sill">
+      <h2><span class="ru">Как установить</span><span class="en">How to install</span></h2>
+      <ol class="steps ru">
+        <li>Скачай архив кнопкой выше.</li>
+        <li>Распакуй его в любую папку.</li>
+        <li>Запусти <code>BalconyGarden.exe</code>.</li>
+      </ol>
+      <ol class="steps en">
+        <li>Download the archive with the button above.</li>
+        <li>Unzip it into any folder.</li>
+        <li>Run <code>BalconyGarden.exe</code>.</li>
+      </ol>
+      <p class="note">
+        <span class="ru">Если Windows покажет окно «Система Windows защитила ваш компьютер», нажми «Подробнее» → «Выполнить в любом случае». Так бывает со всеми играми от небольших разработчиков без платной цифровой подписи.</span>
+        <span class="en">If Windows shows "Windows protected your PC", click "More info" → "Run anyway". This happens with most games from small developers without a paid code signature.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="ru">Что дальше</span><span class="en">What's next</span></h2>
+    <p><span class="ru">В следующей версии — настоящая музыка и звуки: полив, лекарства, шелест книги, птицы за окном. Игра бесплатная и в альфе, так что любой отзыв помогает.</span><span class="en">The next version brings real music and sounds: watering, remedies, book pages, birds outside the window. The game is free and in alpha, so any feedback helps.</span></p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© GraG_Hack · <span class="ru">Балконный сад</span><span class="en">Balcony Garden</span></span>
+    <span><a href="https://grag-hack.itch.io/balcony-garden" target="_blank" rel="noopener">itch.io</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var body=document.body, ru=document.getElementById('lang-ru'), en=document.getElementById('lang-en');
+  function set(l){
+    body.setAttribute('data-lang',l); document.documentElement.lang=l;
+    ru.setAttribute('aria-pressed',l==='ru'); en.setAttribute('aria-pressed',l==='en');
+    try{localStorage.setItem('bg-lang',l)}catch(e){}
+  }
+  var saved=null; try{saved=localStorage.getItem('bg-lang')}catch(e){}
+  var nav=(navigator.language||'ru').slice(0,2);
+  set(saved || (['ru','uk','be','kk'].indexOf(nav)>=0?'ru':'en'));
+  ru.onclick=function(){set('ru')}; en.onclick=function(){set('en')};
+  document.querySelectorAll('.shots img').forEach(function(img){
+    img.addEventListener('click',function(){
+      var box=document.createElement('div'); box.className='lightbox';
+      var big=document.createElement('img'); big.src=img.src; big.alt=img.alt;
+      box.appendChild(big); box.onclick=function(){box.remove()}; document.body.appendChild(box);
+    });
+  });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'){var b=document.querySelector('.lightbox'); if(b) b.remove();} });
+})();
+</script>
+</body>
+</html>
