@@ -54,6 +54,7 @@ h2{font-family:var(--display);font-weight:600;font-size:clamp(22px,3.4vw,30px);m
 .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:16px}
 .feat{background:var(--card);border-radius:12px;padding:18px;border-left:6px solid var(--pot)}
 .feat h3{margin:0 0 6px;font-size:18px}
+.sill h3.pm{font-family:var(--display);font-weight:600;font-size:20px;margin:26px 0 12px}
 .feat p{margin:0;color:var(--ink-2);font-size:16px}
 
 .mode{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center}
@@ -125,6 +126,10 @@ footer a{color:#f3e6cf}
       <p class="meta">
         <span class="ru">Windows · версия 0.2 (альфа) · 30 МБ · русский и английский</span>
         <span class="en">Windows · version 0.2 (alpha) · 30 MB · English and Russian</span>
+      </p>
+      <p class="meta">
+        <span class="ru">🎮 Есть версия для ретро-консолей (R36S, Anbernic и др.) через PortMaster — <a href="https://github.com/i66518101-hub/Balcony-Garden/releases/latest/download/balconygarden_portmaster.zip">скачать</a></span>
+        <span class="en">🎮 Also on retro handhelds (R36S, Anbernic, etc.) via PortMaster — <a href="https://github.com/i66518101-hub/Balcony-Garden/releases/latest/download/balconygarden_portmaster.zip">download</a></span>
       </p>
     </div>
     <div>
@@ -210,6 +215,19 @@ footer a{color:#f3e6cf}
         <span class="ru">Если Windows покажет окно «Система Windows защитила ваш компьютер», нажми «Подробнее» → «Выполнить в любом случае». Так бывает со всеми играми от небольших разработчиков без платной цифровой подписи.</span>
         <span class="en">If Windows shows "Windows protected your PC", click "More info" → "Run anyway". This happens with most games from small developers without a paid code signature.</span>
       </p>
+      <h3 class="pm"><span class="ru">На ретро-консоли (PortMaster)</span><span class="en">On a retro handheld (PortMaster)</span></h3>
+      <ol class="steps ru">
+        <li>На консоли должен быть установлен PortMaster.</li>
+        <li>Распакуй архив и скопируй <code>Balcony Garden.sh</code> и папку <code>balconygarden</code> в папку <code>ports</code> на карте памяти.</li>
+        <li>Если у консоли нет интернета, скачай рантаймы <code>godot_4.3</code> и <code>weston_pkg_0.2</code> с сайта PortMaster и положи их в <code>PortMaster/libs</code>.</li>
+        <li>Запусти игру из раздела Ports. Стик — курсор, A — клик, B — закрыть окно, L1/R1 — горшки.</li>
+      </ol>
+      <ol class="steps en">
+        <li>PortMaster must be installed on the handheld.</li>
+        <li>Unzip the archive and copy <code>Balcony Garden.sh</code> and the <code>balconygarden</code> folder into <code>ports</code> on the SD card.</li>
+        <li>If the handheld has no internet, download the <code>godot_4.3</code> and <code>weston_pkg_0.2</code> runtimes from the PortMaster site into <code>PortMaster/libs</code>.</li>
+        <li>Start the game from Ports. Stick — cursor, A — click, B — close window, L1/R1 — pots.</li>
+      </ol>
     </div>
   </div>
 </section>
