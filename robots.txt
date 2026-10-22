@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://i66518101-hub.github.io/Balcony-Garden/sitemap.xml
